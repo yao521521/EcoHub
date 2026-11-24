@@ -224,8 +224,9 @@ func formatProvideFilmDetail(snapshot model.FilmListSnapshot, movieDetailVo mode
 	}, nil
 }
 
-// formatProvidePlayLists 组装电视端 vod_play_from 与 vod_play_url：手动线路置顶，全量下发所有线路。
+// formatProvidePlayLists 组装电视端 vod_play_from 与 vod_play_url：手动线路置顶，过滤网盘线路后下发。
 func formatProvidePlayLists(sources []model.PlayLinkVo) (string, string) {
+	sources = filterCloudDriveSources(sources)
 	if len(sources) == 0 {
 		return "", ""
 	}

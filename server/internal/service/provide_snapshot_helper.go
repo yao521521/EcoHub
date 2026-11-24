@@ -114,7 +114,7 @@ func resolveProvideTypeFromSnapshot(snapshot model.FilmListSnapshot) (int64, str
 }
 
 func resolveProvideSnapshotPlayFromSummary(snapshot model.FilmListSnapshot) string {
-	return strings.TrimSpace(snapshot.PlayFromSummary)
+	return filterCloudDriveFromSummary(snapshot.PlayFromSummary)
 }
 
 func resolveProvideSnapshotVodTime(snapshot model.FilmListSnapshot) string {
