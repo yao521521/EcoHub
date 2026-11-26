@@ -194,7 +194,7 @@ Enabling "私有化访问" (Private access) in "网站配置" (Site settings) re
 The key can be passed as a URL parameter or in the `X-Provide-Key` request header. Example with the key `mysecret888`:
 
 ```text
-http://<server-ip>:3000/api/provide/tvbox?key=mysecret888
+http://<server-ip>:1281/api/provide/tvbox?key=mysecret888
 ```
 
 ## Related documents

@@ -18,7 +18,7 @@ func TestProvideService_GetTVBoxConfig_PrimarySites(t *testing.T) {
 		t.Fatalf("sources: %v", err)
 	}
 
-	res, err := ProvideSvc.GetTVBoxConfig("http://127.0.0.1:8080", "")
+	res, err := ProvideSvc.GetTVBoxConfig("http://127.0.0.1:1280", "")
 	if err != nil {
 		t.Fatalf("GetTVBoxConfig 失败: %v", err)
 	}
@@ -32,7 +32,7 @@ func TestProvideService_GetTVBoxConfig_PrimarySites(t *testing.T) {
 	if err := repository.SaveSiteBasic(model.BasicConfig{SiteName: "ECOHUB私人影库"}); err != nil {
 		t.Fatal(err)
 	}
-	named, err := ProvideSvc.GetTVBoxConfig("http://127.0.0.1:8080", "")
+	named, err := ProvideSvc.GetTVBoxConfig("http://127.0.0.1:1280", "")
 	if err != nil {
 		t.Fatalf("GetTVBoxConfig 失败: %v", err)
 	}

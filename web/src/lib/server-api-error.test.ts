@@ -27,7 +27,7 @@ test("识别 HTTP 401 私有访问鉴权失败响应", () => {
 
 test("前台错误文案屏蔽内部 API_URL 与 5xx 原始错误", () => {
   const netErr = new ServerApiError({
-    message: "服务端请求失败: http://127.0.0.1:8080/api/home; connect ECONNREFUSED",
+    message: "服务端请求失败: http://127.0.0.1:1280/api/home; connect ECONNREFUSED",
     status: 0,
     isNetworkError: true,
   });

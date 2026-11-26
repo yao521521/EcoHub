@@ -11,7 +11,7 @@ old.com => new.com
 // 箭头语法
 http://site1.com -> https://site2.com
 ; 逗号语法
-old3.com:8080,new3.com:8443
+old3.com:1280,new3.com:8443
 # 空格分隔
 old4.com new4.com
 *.cdn.com => *.fastcdn.com
@@ -28,7 +28,7 @@ http://old5.com/vod => https://new5.com/live/
 	if rules[1].FromScheme != "http" || rules[1].ToScheme != "https" || rules[1].FromHost != "site1.com" || rules[1].ToHost != "site2.com" {
 		t.Errorf("rule 1 mismatch: %+v", rules[1])
 	}
-	if rules[2].FromHost != "old3.com:8080" || rules[2].ToHost != "new3.com:8443" {
+	if rules[2].FromHost != "old3.com:1280" || rules[2].ToHost != "new3.com:8443" {
 		t.Errorf("rule 2 mismatch: %+v", rules[2])
 	}
 	if rules[3].FromHost != "old4.com" || rules[3].ToHost != "new4.com" {
@@ -46,7 +46,7 @@ func TestApplyDomainReplaceRules(t *testing.T) {
 	rules := ParseDomainReplaceRules(`
 old.com => new.com
 http://upgrade.com => https://upgrade.com
-oldport.com:8080 => newport.com:8443
+oldport.com:1280 => newport.com:8443
 *.wildcard.com => *.target.com
 oldpath.com/vod => newpath.com/hls
 `)
@@ -78,7 +78,7 @@ oldpath.com/vod => newpath.com/hls
 		},
 		{
 			name:     "port replacement",
-			input:    "http://oldport.com:8080/stream.m3u8",
+			input:    "http://oldport.com:1280/stream.m3u8",
 			expected: "http://newport.com:8443/stream.m3u8",
 		},
 		{

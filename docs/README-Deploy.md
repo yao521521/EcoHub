@@ -2,7 +2,7 @@
 
 中文 | [English](./README-Deploy_EN.md)
 
-EcoHub 以 All-in-One 镜像 `ghcr.io/fe-spark/ecohub` 发布：同一容器内运行 Go API（容器内端口 `8080`）和 Next.js 前端（容器内端口 `3000`）。另需一个 MySQL 和一个 Redis。
+EcoHub 以 All-in-One 镜像 `ghcr.io/fe-spark/ecohub` 发布：同一容器内运行 Go API（容器内端口 `1280`）和 Next.js 前端（容器内端口 `1281`）。另需一个 MySQL 和一个 Redis。
 
 镜像 tag 说明：
 
@@ -24,8 +24,8 @@ EcoHub 以 All-in-One 镜像 `ghcr.io/fe-spark/ecohub` 发布：同一容器内�
 
 | 端口 | 默认值 | 用途 |
 | --- | --- | --- |
-| Web 端口 | `3000` | 前台、后台和订阅地址均通过此端口访问 |
-| API 直连端口 | `18080` | 映射到容器内 `8080`，直接访问后端 `/api/*`。订阅地址也可使用此端口，见 [访问地址](#访问地址)。不需要时可移除 |
+| Web 端口 | `1281` | 前台、后台和订阅地址均通过此端口访问 |
+| API 直连端口 | `1280` | 映射到容器内 `1280`，直接访问后端 `/api/*`。订阅地址也可使用此端口，见 [访问地址](#访问地址)。不需要时可移除 |
 
 为 `JWT_SECRET` 生成随机密钥：
 
@@ -127,7 +127,7 @@ ecohub uninstall --purge
 services:
   ecohub:
     ports: !override
-      - "127.0.0.1:${WEB_PORT:-3000}:3000"
+      - "127.0.0.1:${WEB_PORT:-1281}:1281"
 ```
 
 保存后执行 `ecohub restart`。
@@ -144,8 +144,8 @@ services:
 
 ```env
 ECOHUB_IMAGE=ghcr.io/fe-spark/ecohub:v3.1.5
-WEB_PORT=3000
-SERVER_PORT=18080
+WEB_PORT=1281
+SERVER_PORT=1280
 JWT_SECRET=请替换为长随机串
 ECOHUB_ADMIN_PASSWORD=请改成强密码
 MYSQL_ROOT_PASSWORD=请改成强密码
@@ -161,7 +161,7 @@ REDIS_DB=0
 ```
 
 4. 保存并启动，确认 `Eco-hub`、`Eco-mysql`、`Eco-redis` 三个容器均在运行。
-5. 为站点配置反向代理，指向 `http://127.0.0.1:3000`。
+5. 为站点配置反向代理，指向 `http://127.0.0.1:1281`。
 
 更新：修改 `ECOHUB_IMAGE` 后，在工作目录中执行：
 
@@ -205,9 +205,9 @@ done
 
 docker run -d --name Eco-hub --restart always --network Eco-network \
   --add-host=host.docker.internal:host-gateway \
-  -p 3000:3000 \
-  -p 18080:8080 \
-  -e PORT=8080 \
+  -p 1281:1281 \
+  -p 1280:1280 \
+  -e PORT=1280 \
   -e JWT_SECRET="$JWT_SECRET" \
   -e ECOHUB_ADMIN_PASSWORD="请改成强密码" \
   -e MYSQL_HOST=Eco-mysql \
@@ -249,19 +249,19 @@ REDIS_HOST=host.docker.internal
 
 | 地址 | 用途 |
 | --- | --- |
-| `http://<服务器IP>:3000` | 前台 |
-| `http://<服务器IP>:3000/manage` | 管理后台 |
-| `http://<服务器IP>:3000/api/provide/app` | EcoHub 客户端订阅 |
-| `http://<服务器IP>:3000/api/provide/tvbox` | TVBox / 影视仓订阅 |
-| `http://<服务器IP>:3000/api/provide/vod` | MacCMS 订阅 |
+| `http://<服务器IP>:1281` | 前台 |
+| `http://<服务器IP>:1281/manage` | 管理后台 |
+| `http://<服务器IP>:1281/api/provide/app` | EcoHub 客户端订阅 |
+| `http://<服务器IP>:1281/api/provide/tvbox` | TVBox / 影视仓订阅 |
+| `http://<服务器IP>:1281/api/provide/vod` | MacCMS 订阅 |
 
-`3000` 为默认 Web 端口，实际地址以终端输出为准。
+`1281` 为默认 Web 端口，实际地址以终端输出为准。
 
-订阅地址也可使用 API 直连端口，例如 `http://<服务器IP>:18080/api/provide/tvbox`。三条订阅地址均为 `/api/provide/*`，由 Go 后端直接处理；Web 端口仅将 `/api/*` 原样转发给 Go，因此两个端口返回的内容相同。返回内容中的地址（TVBox 的站点接口、客户端的 `api_base`）按请求地址生成，通过 `18080` 订阅时这些地址同样使用 `18080`。前台和后台页面仅通过 Web 端口提供。
+订阅地址也可使用 API 直连端口，例如 `http://<服务器IP>:1280/api/provide/tvbox`。三条订阅地址均为 `/api/provide/*`，由 Go 后端直接处理；Web 端口仅将 `/api/*` 原样转发给 Go，因此两个端口返回的内容相同。返回内容中的地址（TVBox 的站点接口、客户端的 `api_base`）按请求地址生成，通过 `1280` 订阅时这些地址同样使用 `1280`。前台和后台页面仅通过 Web 端口提供。
 
 后台账号为 `admin`，密码为 `ECOHUB_ADMIN_PASSWORD`，未设置时为 `admin`。首次登录后请立即修改密码。
 
-后台开启「私有化访问」后，订阅地址需要携带订阅密钥，例如 `http://<服务器IP>:3000/api/provide/tvbox?key=你的密钥`。详见 [常见问题](./README-FAQ.md#开启私有化访问后订阅怎么填)。
+后台开启「私有化访问」后，订阅地址需要携带订阅密钥，例如 `http://<服务器IP>:1281/api/provide/tvbox?key=你的密钥`。详见 [常见问题](./README-FAQ.md#开启私有化访问后订阅怎么填)。
 
 数据目录（安装目录默认为 `~/ecohub`）：
 
@@ -279,8 +279,8 @@ REDIS_HOST=host.docker.internal
 
 生产环境建议：
 
-- 反向代理将整个站点指向 `127.0.0.1:3000`，并启用 HTTPS。`/api` 无需单独转发到 `18080`，Web 端口会将 `/api/*` 转发给容器内的 Go 进程。
-- 不希望公网直接访问 `3000`、也不使用 `18080` 时：通过安装脚本部署的，使用 [docker-compose.override.yml](#自定义编排)；自行维护编排的，直接修改 `ports`。
+- 反向代理将整个站点指向 `127.0.0.1:1281`，并启用 HTTPS。`/api` 无需单独转发到 `1280`，Web 端口会将 `/api/*` 转发给容器内的 Go 进程。
+- 不希望公网直接访问 `1281`、也不使用 `1280` 时：通过安装脚本部署的，使用 [docker-compose.override.yml](#自定义编排)；自行维护编排的，直接修改 `ports`。
 - 云服务器安全组仅放行 `80`、`443`。
 
 ## 环境变量
@@ -290,8 +290,8 @@ REDIS_HOST=host.docker.internal
 | 变量 | 默认值 | 读取方 | 说明 |
 | --- | --- | --- | --- |
 | `ECOHUB_IMAGE` | `ghcr.io/fe-spark/ecohub:latest`（安装脚本全新安装时写入 `:v3.0.7`） | Compose | 镜像 tag |
-| `WEB_PORT` | `3000` | Compose | 宿主机 Web 端口，映射到容器内 `3000` |
-| `SERVER_PORT` | `18080` | Compose | 宿主机 API 直连端口，映射到容器内 `8080` |
+| `WEB_PORT` | `1281` | Compose | 宿主机 Web 端口，映射到容器内 `1281` |
+| `SERVER_PORT` | `1280` | Compose | 宿主机 API 直连端口，映射到容器内 `1280` |
 | `JWT_SECRET` | 仓库中的示例值 | 应用 | 登录签名密钥。必须改为随机字符串；修改后所有用户需要重新登录 |
 | `ECOHUB_ADMIN_PASSWORD` | `admin` | 应用 | 仅在首次创建 `admin` 时写入 |
 | `MYSQL_ROOT_PASSWORD` | `ecohub` | 内置 MySQL | 仅在 `data/mysql` 首次初始化时生效 |
@@ -309,11 +309,11 @@ REDIS_HOST=host.docker.internal
 
 `NODE_NAME`、`ECOHUB_LOG_DIR` 等仅供 Go 进程使用的变量未由发布编排传入容器，写入 `.env` 不会生效。如需使用，请在编排的 `environment` 中自行添加。变量含义见 [服务端说明](../server/README.md#环境变量)。
 
-发布镜像在构建时已将前端的 `API_URL` 固定为 `http://127.0.0.1:8080`，部署时无需也不应设置 `API_URL`。
+发布镜像在构建时已将前端的 `API_URL` 固定为 `http://127.0.0.1:1280`，部署时无需也不应设置 `API_URL`。
 
 ## 故障排查
 
-- 健康检查：访问 `http://<服务器IP>:3000/api/config/basic`，返回 JSON 即表示前后端均已启动。映射了 `18080` 时，也可通过 `http://<服务器IP>:18080/api/config/basic` 直接检查后端。
+- 健康检查：访问 `http://<服务器IP>:1281/api/config/basic`，返回 JSON 即表示前后端均已启动。映射了 `1280` 时，也可通过 `http://<服务器IP>:1280/api/config/basic` 直接检查后端。
 - 容器反复重启：查看 `ecohub logs` 或 `docker logs Eco-hub`。常见原因是数据库密码与首次初始化时的值不一致，或端口被占用。后端启动时先等待 Redis、再等待 MySQL，各重试 30 次，间隔 2 秒；仍无法连接时进程退出，由容器内的 supervisord 重新拉起。
 - 前台可以打开但接口报错：检查反向代理是否将整个站点指向 Web 端口。
 - 端口被占用：通常是旧容器仍在运行，使用 `docker ps -a` 找到后删除。

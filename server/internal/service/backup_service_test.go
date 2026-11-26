@@ -99,7 +99,7 @@ func TestExportConfig_CompleteAndClean(t *testing.T) {
 
 	proxyCfg := model.ProxyConfig{
 		Enabled:  true,
-		ProxyURL: "http://user:secret123@proxy.test:8080",
+		ProxyURL: "http://user:secret123@proxy.test:1280",
 		Modules:  model.ProxyModuleScope{Spider: true, TMDB: true},
 	}
 	if err := repository.SaveProxyConfig(proxyCfg); err != nil {
@@ -171,7 +171,7 @@ func TestExportConfig_CompleteAndClean(t *testing.T) {
 		t.Fatalf("backup export should not contain bannerConfig: %s", raw)
 	}
 	// 验证敏感凭据在灾备导出中完整保留
-	if backup.Proxy == nil || backup.Proxy.ProxyURL != "http://user:secret123@proxy.test:8080" {
+	if backup.Proxy == nil || backup.Proxy.ProxyURL != "http://user:secret123@proxy.test:1280" {
 		t.Fatalf("proxy config raw url should be retained for migration: %+v", backup.Proxy)
 	}
 	if backup.TMDB == nil || backup.TMDB.ApiKey != "tmdb_api_key_secret" {

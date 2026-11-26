@@ -48,11 +48,11 @@ func TestWrapMediaURL(t *testing.T) {
 
 	t.Run("private LAN hosts are not proxied", func(t *testing.T) {
 		lanURLs := []string{
-			"http://192.168.1.100:8080/pic.jpg",
+			"http://192.168.1.100:1280/pic.jpg",
 			"http://10.0.0.1/pic.jpg",
-			"http://127.0.0.1:8080/pic.jpg",
-			"http://localhost:8080/pic.jpg",
-			"http://172.20.10.5:8080/pic.jpg",
+			"http://127.0.0.1:1280/pic.jpg",
+			"http://localhost:1280/pic.jpg",
+			"http://172.20.10.5:1280/pic.jpg",
 		}
 		for _, u := range lanURLs {
 			if got := WrapMediaURL(u); got != u {

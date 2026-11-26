@@ -16,7 +16,7 @@ v3 无法读取 v2 的数据库，也不提供数据迁移。升级方法为：�
 - 在 v2 后台使用「立即升级」。
 - 将旧的 `data/mysql`、`data/redis`、`data/uploads` 复制到新目录。
 
-v2 和 v3 的编排使用相同的容器名 `Eco-hub`、`Eco-mysql`、`Eco-redis` 和相同的端口 `3000`、`18080`。旧容器存在时新服务无法启动，因此安装 v3 前须先删除旧容器：
+v2 和 v3 的编排使用相同的容器名 `Eco-hub`、`Eco-mysql`、`Eco-redis` 和相同的端口 `1281`、`1280`。旧容器存在时新服务无法启动，因此安装 v3 前须先删除旧容器：
 
 ```bash
 docker rm -f Eco-hub Eco-mysql Eco-redis
@@ -73,7 +73,7 @@ curl -fsSL https://raw.githubusercontent.com/fe-spark/EcoHub/main/scripts/instal
 - 终端输出的前台地址可以打开，`/api/config/basic` 返回 JSON。
 - 登录后台执行一次全量采集后，前台出现影片。
 
-原有反向代理已指向 `127.0.0.1:3000` 时无需修改。新服务无法启动并提示端口或容器名被占用时，表示旧容器仍然存在。
+原有反向代理已指向 `127.0.0.1:1281` 时无需修改。新服务无法启动并提示端口或容器名被占用时，表示旧容器仍然存在。
 
 ## 相关文档
 

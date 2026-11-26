@@ -49,7 +49,7 @@
 
 ## 格式
 
-- 默认值、端口、时间、路径、变量名、命令使用代码格式，例如 `3000`、`~/ecohub`、`JWT_SECRET`。
+- 默认值、端口、时间、路径、变量名、命令使用代码格式，例如 `1281`、`~/ecohub`、`JWT_SECRET`。
 - 中文与英文、数字之间留一个空格，中文语境使用全角标点。
 - 界面上的按钮和菜单名使用「」括起，并与界面文字完全一致，例如「采集中心」「计划任务」。
 - 需要提醒的内容使用 GitHub 提示块（`> [!NOTE]`、`> [!WARNING]`），不使用「注意：」开头的段落。
@@ -74,7 +74,7 @@
 | 订阅地址 | subscription URL | `/api/provide/app`、`/api/provide/tvbox`、`/api/provide/vod` |
 | 发布镜像 | release image | `ghcr.io/fe-spark/ecohub`，Go API 与 Next.js 运行在同一个容器内 |
 | 安装目录 | install directory | `ecohub` 命令管理的目录，默认 `~/ecohub` |
-| Web 端口 / API 直连端口 | web port / direct API port | 默认 `3000` / `18080` |
+| Web 端口 / API 直连端口 | web port / direct API port | 默认 `1281` / `1280` |
 
 ## 代码块和命令
 

@@ -8,7 +8,7 @@ import (
 // DomainReplaceRule 定义单个采集站播放链接域名替换规则
 type DomainReplaceRule struct {
 	FromScheme string // 匹配特定协议: "http", "https" 或 "" (任意协议)
-	FromHost   string // 匹配 Host (小写, 可能含通配符如 "*.old.com" 或端口如 "old.com:8080")
+	FromHost   string // 匹配 Host (小写, 可能含通配符如 "*.old.com" 或端口如 "old.com:1280")
 	FromPath   string // 匹配路径前缀, 默认为 "" (如 "/vod")
 	ToScheme   string // 替换协议: "http", "https" 或 "" (保持原协议)
 	ToHost     string // 目标 Host (如 "new.com", "*.new.com" 或 "new.com:8443")

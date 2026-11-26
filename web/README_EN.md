@@ -21,7 +21,7 @@ flowchart LR
     Rewrite --> Backend
 ```
 
-Example: with `API_URL=http://127.0.0.1:8080`, the browser requests `http://127.0.0.1:3000/api/home` and Next forwards it to `http://127.0.0.1:8080/api/home`.
+Example: with `API_URL=http://127.0.0.1:1280`, the browser requests `http://127.0.0.1:1281/api/home` and Next forwards it to `http://127.0.0.1:1280/api/home`.
 
 ## Run locally
 
@@ -37,11 +37,11 @@ npm run dev
 Contents of `.env.example`:
 
 ```env
-PORT=3000
-API_URL=http://127.0.0.1:8080
+PORT=1281
+API_URL=http://127.0.0.1:1280
 ```
 
-The site is available at `http://127.0.0.1:3000`, the login page at `/login`, and the admin panel at `/manage`.
+The site is available at `http://127.0.0.1:1281`, the login page at `/login`, and the admin panel at `/manage`.
 
 ### Run the web app in a container
 
@@ -53,23 +53,23 @@ docker compose up -d --build web
 ```
 
 - Run the commands in the repository root. `web` depends on the `server` health check, so `server` is also built and started.
-- `API_URL` is `http://server:8080` at both build time and run time, which refers to the `server` service in the same compose file. `web/.env.local` is not read.
-- The site is mapped to `3000` on the host (`WEB_PORT`).
+- `API_URL` is `http://server:1280` at both build time and run time, which refers to the `server` service in the same compose file. `web/.env.local` is not read.
+- The site is mapped to `1281` on the host (`WEB_PORT`).
 
 ## Environment variables
 
 | Variable | Default | Required | Notes |
 | --- | --- | --- | --- |
-| `PORT` | `3000` | No | Local development port |
+| `PORT` | `1281` | No | Local development port |
 | `API_URL` | none | Yes | Go backend address. Both build and start fail when it is not set |
 
 Notes on `API_URL`:
 
-- The `/api` suffix and the trailing `/` are optional: `http://127.0.0.1:8080` and `http://127.0.0.1:8080/api/` are equivalent.
+- The `/api` suffix and the trailing `/` are optional: `http://127.0.0.1:1280` and `http://127.0.0.1:1280/api/` are equivalent.
 - If the backend runs on another machine, use that machine's address.
 - Restart Next after changing the value. `API_URL` is embedded in the build output, so production builds require `npm run build` again after a change.
 - Inside a container, `127.0.0.1` refers to the container itself.
-- The release image sets it to `http://127.0.0.1:8080` at build time; it is not set during deployment.
+- The release image sets it to `http://127.0.0.1:1280` at build time; it is not set during deployment.
 
 ## Authentication
 

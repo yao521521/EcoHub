@@ -201,7 +201,7 @@ primary_ip() {
 }
 
 print_access() {
-  web_port=$(env_get WEB_PORT 3000)
+  web_port=$(env_get WEB_PORT 1281)
   admin_password=$(env_get ECOHUB_ADMIN_PASSWORD admin)
   image=$(env_get ECOHUB_IMAGE "ghcr.io/fe-spark/ecohub:latest")
   host=$(primary_ip)

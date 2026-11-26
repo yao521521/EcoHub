@@ -194,7 +194,7 @@ TVBox 的常规列表另有一层 Redis 缓存，最长约 12 小时，入库后
 密钥可通过地址参数或请求头 `X-Provide-Key` 传递。示例（密钥为 `mysecret888`）：
 
 ```text
-http://<服务器IP>:3000/api/provide/tvbox?key=mysecret888
+http://<服务器IP>:1281/api/provide/tvbox?key=mysecret888
 ```
 
 ## 相关文档

@@ -27,7 +27,7 @@ go run ./cmd/server
 `.env.example` 内容如下：
 
 ```env
-PORT=8080
+PORT=1280
 JWT_SECRET=ecohub_2026!local@dev_secret$001
 ECOHUB_ADMIN_PASSWORD=admin
 MYSQL_HOST=127.0.0.1
@@ -42,7 +42,7 @@ REDIS_DB=0
 ```
 
 - 进程启动时读取当前目录的 `.env`，因此须在 `server/` 目录中运行。已存在的环境变量不会被 `.env` 覆盖。
-- API 默认监听 `:8080`。
+- API 默认监听 `:1280`。
 - 首次启动时建表，并写入网站配置、管理员 `admin`、12 个预设采集站和 4 条计划任务。
 - 对外部署时须将 `JWT_SECRET` 替换为随机字符串，可通过 `openssl rand -hex 32` 生成。
 
@@ -55,14 +55,14 @@ docker compose up -d --build server
 ```
 
 - 在仓库根目录执行。`server` 未声明 `depends_on`，不会自动启动数据库，须先执行 `docker compose up -d mysql redis`。
-- API 映射到本机 `18080`（`SERVER_PORT`），例如 `http://127.0.0.1:18080/api/config/basic`。
+- API 映射到本机 `1280`（`SERVER_PORT`），例如 `http://127.0.0.1:1280/api/config/basic`。
 - 容器内使用服务名 `mysql`、`redis` 连接数据库，变量取自仓库根目录的 `.env`（不存在时使用编排中的默认值），不读取 `server/.env`。
 
 ## 环境变量
 
 | 变量 | 默认值 | 必填 | 说明 |
 | --- | --- | --- | --- |
-| `PORT` | `8080` | 否 | API 监听端口。发布镜像里固定 `8080` |
+| `PORT` | `1280` | 否 | API 监听端口。发布镜像里固定 `1280` |
 | `JWT_SECRET` | 无 | 是 | 登录签名密钥。未设置时进程 panic |
 | `ECOHUB_ADMIN_PASSWORD` | `admin` | 否 | 仅在首次创建 `admin` 时写入 |
 | `MYSQL_HOST` | 无 | 是 | 本机运行时为 `127.0.0.1`，Compose 中为服务名 `mysql`，容器访问宿主机时为 `host.docker.internal` |

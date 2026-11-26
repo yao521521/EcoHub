@@ -256,7 +256,7 @@ func InitConfig() {
 		ListenerPort = port
 	}
 	if ListenerPort == "" {
-		ListenerPort = "8080"
+		ListenerPort = "1280"
 	}
 
 	fmt.Printf("[Config] 加载端口: %s\n", ListenerPort)

@@ -41,7 +41,7 @@ Intended for day-to-day development: the databases run in containers, and the se
    cd web && cp .env.example .env.local && npm install && npm run dev
    ```
 
-The site is available at `http://127.0.0.1:3000`, the admin panel at `http://127.0.0.1:3000/manage`, and the API at `http://127.0.0.1:8080`.
+The site is available at `http://127.0.0.1:1281`, the admin panel at `http://127.0.0.1:1281/manage`, and the API at `http://127.0.0.1:1280`.
 
 ## Mode 2: build all containers from source
 
@@ -51,7 +51,7 @@ Intended for validating the Dockerfiles or for integration testing:
 docker compose up -d --build
 ```
 
-The site is available at `http://127.0.0.1:3000` and the API at `http://127.0.0.1:18080`. Ports and passwords can be changed in a `.env` file in the repository root (copied from [.env.example](../.env.example); the defaults apply when the file is absent).
+The site is available at `http://127.0.0.1:1281` and the API at `http://127.0.0.1:1280`. Ports and passwords can be changed in a `.env` file in the repository root (copied from [.env.example](../.env.example); the defaults apply when the file is absent).
 
 ## Precautions
 

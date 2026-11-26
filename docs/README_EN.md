@@ -69,8 +69,8 @@ For behavioral details, see the [FAQ](./README-FAQ_EN.md).
 
 ```mermaid
 flowchart LR
-    Client["Browser / Subscription clients"] --> Web["Next.js :3000"]
-    Web -- "/api/*" --> API["Go API :8080"]
+    Client["Browser / Subscription clients"] --> Web["Next.js :1281"]
+    Web -- "/api/*" --> API["Go API :1280"]
     API --> DB[("MySQL 8 / Redis 7")]
     API --> Ext["Collect sources / TMDB / Telegram / Danmaku"]
 ```
@@ -84,7 +84,7 @@ curl -fsSL https://raw.githubusercontent.com/fe-spark/EcoHub/main/scripts/instal
   | ECOHUB_IMAGE=ghcr.io/fe-spark/ecohub:v3.1.5 sh
 ```
 
-After installation, the terminal prints the URLs, initial credentials, and subscription URLs. The default web port is `3000`, the install directory is `~/ecohub`, and daily management uses `ecohub`. For passwords, ports, 1Panel, manual deployment, reverse proxies, and environment variables, see the [Deploy guide](./README-Deploy_EN.md).
+After installation, the terminal prints the URLs, initial credentials, and subscription URLs. The default web port is `1281`, the install directory is `~/ecohub`, and daily management uses `ecohub`. For passwords, ports, 1Panel, manual deployment, reverse proxies, and environment variables, see the [Deploy guide](./README-Deploy_EN.md).
 
 ## Documentation
 

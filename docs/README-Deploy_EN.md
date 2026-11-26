@@ -2,7 +2,7 @@
 
 [中文](./README-Deploy.md) | English
 
-EcoHub is distributed as a single all-in-one image, `ghcr.io/fe-spark/ecohub`. One container runs the Go API (port `8080` inside the container) and the Next.js web app (port `3000` inside the container). A MySQL instance and a Redis instance are also required.
+EcoHub is distributed as a single all-in-one image, `ghcr.io/fe-spark/ecohub`. One container runs the Go API (port `1280` inside the container) and the Next.js web app (port `1281` inside the container). A MySQL instance and a Redis instance are also required.
 
 Image tags:
 
@@ -24,8 +24,8 @@ Exposed ports:
 
 | Port | Default | Purpose |
 | --- | --- | --- |
-| Web port | `3000` | Serves the site, the admin panel, and the subscription URLs |
-| Direct API port | `18080` | Maps to `8080` in the container and serves the backend `/api/*` directly. Subscription URLs can also use this port; see [URLs](#urls). Can be removed if not needed |
+| Web port | `1281` | Serves the site, the admin panel, and the subscription URLs |
+| Direct API port | `1280` | Maps to `1280` in the container and serves the backend `/api/*` directly. Subscription URLs can also use this port; see [URLs](#urls). Can be removed if not needed |
 
 Generate a random key for `JWT_SECRET`:
 
@@ -127,7 +127,7 @@ Example: the web port listens on localhost only (behind a reverse proxy), and th
 services:
   ecohub:
     ports: !override
-      - "127.0.0.1:${WEB_PORT:-3000}:3000"
+      - "127.0.0.1:${WEB_PORT:-1281}:1281"
 ```
 
 Run `ecohub restart` afterwards.
@@ -144,8 +144,8 @@ Run `ecohub restart` afterwards.
 
 ```env
 ECOHUB_IMAGE=ghcr.io/fe-spark/ecohub:v3.1.5
-WEB_PORT=3000
-SERVER_PORT=18080
+WEB_PORT=1281
+SERVER_PORT=1280
 JWT_SECRET=replace-with-a-long-random-string
 ECOHUB_ADMIN_PASSWORD=use-a-strong-password
 MYSQL_ROOT_PASSWORD=use-a-strong-password
@@ -161,7 +161,7 @@ REDIS_DB=0
 ```
 
 4. Save and start the project. Verify that `Eco-hub`, `Eco-mysql`, and `Eco-redis` are running.
-5. Configure a reverse proxy for the site that points to `http://127.0.0.1:3000`.
+5. Configure a reverse proxy for the site that points to `http://127.0.0.1:1281`.
 
 To update, set the new `ECOHUB_IMAGE` and run the following in the working directory:
 
@@ -205,9 +205,9 @@ done
 
 docker run -d --name Eco-hub --restart always --network Eco-network \
   --add-host=host.docker.internal:host-gateway \
-  -p 3000:3000 \
-  -p 18080:8080 \
-  -e PORT=8080 \
+  -p 1281:1281 \
+  -p 1280:1280 \
+  -e PORT=1280 \
   -e JWT_SECRET="$JWT_SECRET" \
   -e ECOHUB_ADMIN_PASSWORD="use-a-strong-password" \
   -e MYSQL_HOST=Eco-mysql \
@@ -249,19 +249,19 @@ The app creates its tables and initial data on startup. The database must be cre
 
 | URL | Purpose |
 | --- | --- |
-| `http://<server-ip>:3000` | Site |
-| `http://<server-ip>:3000/manage` | Admin |
-| `http://<server-ip>:3000/api/provide/app` | EcoHub client subscription |
-| `http://<server-ip>:3000/api/provide/tvbox` | TVBox / YingShiCang subscription |
-| `http://<server-ip>:3000/api/provide/vod` | MacCMS subscription |
+| `http://<server-ip>:1281` | Site |
+| `http://<server-ip>:1281/manage` | Admin |
+| `http://<server-ip>:1281/api/provide/app` | EcoHub client subscription |
+| `http://<server-ip>:1281/api/provide/tvbox` | TVBox / YingShiCang subscription |
+| `http://<server-ip>:1281/api/provide/vod` | MacCMS subscription |
 
-`3000` is the default web port. The URLs printed in the terminal take precedence.
+`1281` is the default web port. The URLs printed in the terminal take precedence.
 
-Subscription URLs can also use the direct API port, for example `http://<server-ip>:18080/api/provide/tvbox`. All three subscriptions are `/api/provide/*` and are handled by the Go backend. The web port only forwards `/api/*` to Go unchanged, so both ports return the same content. URLs in the response (TVBox site APIs, the client's `api_base`) are built from the request address, so a subscription via `18080` returns `18080` URLs. The site and admin pages are served only on the web port.
+Subscription URLs can also use the direct API port, for example `http://<server-ip>:1280/api/provide/tvbox`. All three subscriptions are `/api/provide/*` and are handled by the Go backend. The web port only forwards `/api/*` to Go unchanged, so both ports return the same content. URLs in the response (TVBox site APIs, the client's `api_base`) are built from the request address, so a subscription via `1280` returns `1280` URLs. The site and admin pages are served only on the web port.
 
 The admin account is `admin`. The password is the value of `ECOHUB_ADMIN_PASSWORD`, or `admin` if it is not set. Change the password immediately after the first sign-in.
 
-When "私有化访问" (Private access) is enabled in the admin panel, subscription URLs must include the subscription key, for example `http://<server-ip>:3000/api/provide/tvbox?key=your-key`. See the [FAQ](./README-FAQ_EN.md#how-do-subscriptions-work-with-private-access-on).
+When "私有化访问" (Private access) is enabled in the admin panel, subscription URLs must include the subscription key, for example `http://<server-ip>:1281/api/provide/tvbox?key=your-key`. See the [FAQ](./README-FAQ_EN.md#how-do-subscriptions-work-with-private-access-on).
 
 Data locations (the install directory defaults to `~/ecohub`):
 
@@ -279,8 +279,8 @@ The site is empty at first. In the admin panel, open "采集中心" (Collect cen
 
 Recommendations for production:
 
-- Point the reverse proxy for the entire site to `127.0.0.1:3000` and enable HTTPS. `/api` does not need to be routed to `18080`; the web port forwards `/api/*` to the Go server in the container.
-- To keep `3000` off the public internet and remove `18080`: for script-based installs, use [docker-compose.override.yml](#custom-compose-settings); for self-managed compose files, edit `ports` directly.
+- Point the reverse proxy for the entire site to `127.0.0.1:1281` and enable HTTPS. `/api` does not need to be routed to `1280`; the web port forwards `/api/*` to the Go server in the container.
+- To keep `1281` off the public internet and remove `1280`: for script-based installs, use [docker-compose.override.yml](#custom-compose-settings); for self-managed compose files, edit `ports` directly.
 - Allow only `80` and `443` in the cloud security group.
 
 ## Environment variables
@@ -290,8 +290,8 @@ In the "Read by" column, Compose means the value is used only by the compose fil
 | Variable | Default | Read by | Notes |
 | --- | --- | --- | --- |
 | `ECOHUB_IMAGE` | `ghcr.io/fe-spark/ecohub:latest` (the install script writes `:v3.0.7` on a fresh install) | Compose | Image tag |
-| `WEB_PORT` | `3000` | Compose | Host web port, mapped to `3000` in the container |
-| `SERVER_PORT` | `18080` | Compose | Host direct API port, mapped to `8080` in the container |
+| `WEB_PORT` | `1281` | Compose | Host web port, mapped to `1281` in the container |
+| `SERVER_PORT` | `1280` | Compose | Host direct API port, mapped to `1280` in the container |
 | `JWT_SECRET` | Sample value from the repository | App | Login signing key. Must be a random string. Changing it signs out all users |
 | `ECOHUB_ADMIN_PASSWORD` | `admin` | App | Written only when `admin` is first created |
 | `MYSQL_ROOT_PASSWORD` | `ecohub` | Bundled MySQL | Applies only on the first init of `data/mysql` |
@@ -309,11 +309,11 @@ To route collect, TMDB scraping, Telegram notifications, the version check, or d
 
 Go-only variables such as `NODE_NAME` and `ECOHUB_LOG_DIR` are not passed into the container by the release compose file, so setting them in `.env` has no effect. Add them under `environment` in the compose file if required. For their meaning, see the [server README](../server/README_EN.md#environment-variables).
 
-The release image sets the web app's `API_URL` to `http://127.0.0.1:8080` at build time. Do not set `API_URL` when deploying.
+The release image sets the web app's `API_URL` to `http://127.0.0.1:1280` at build time. Do not set `API_URL` when deploying.
 
 ## Troubleshooting
 
-- Health check: open `http://<server-ip>:3000/api/config/basic`. A JSON response indicates that both the web app and the API are running. If `18080` is mapped, `http://<server-ip>:18080/api/config/basic` checks the API directly.
+- Health check: open `http://<server-ip>:1281/api/config/basic`. A JSON response indicates that both the web app and the API are running. If `1280` is mapped, `http://<server-ip>:1280/api/config/basic` checks the API directly.
 - Container restarts repeatedly: check `ecohub logs` or `docker logs Eco-hub`. Common causes are a database password that does not match the value from the first initialization, or a port that is already in use. On startup the API waits for Redis and then MySQL, with 30 attempts each at 2-second intervals. If the connection still fails, the process exits and supervisord in the container restarts it.
 - The site loads but API calls fail: verify that the reverse proxy routes the entire site to the web port.
 - Port already in use: usually an old container still exists. Locate it with `docker ps -a` and remove it.

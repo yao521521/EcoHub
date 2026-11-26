@@ -74,7 +74,7 @@ func TestBuildReplacementBody(t *testing.T) {
 		Config: []byte(`{
 			"Image": "ghcr.io/fe-spark/ecohub:v2.6.0",
 			"Hostname": "abcdef123456",
-			"Env": ["PORT=8080"]
+			"Env": ["PORT=1280"]
 		}`),
 		HostConfig: []byte(`{
 			"Binds": ["/data:/data"],

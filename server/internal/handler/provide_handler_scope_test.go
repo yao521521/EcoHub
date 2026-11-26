@@ -113,7 +113,7 @@ func provideJSON(t *testing.T, raw string) map[string]any {
 	if err != nil {
 		t.Fatalf("request: %v", err)
 	}
-	req.Host = "127.0.0.1:8080"
+	req.Host = "127.0.0.1:1280"
 	c.Request = req
 	ProvideHd.HandleProvide(c)
 	if w.Code != http.StatusOK {

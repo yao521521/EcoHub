@@ -111,7 +111,7 @@ func TestHandleProvideConfig_RedisNilSafety(t *testing.T) {
 	w := httptest.NewRecorder()
 	c, _ := gin.CreateTestContext(w)
 	c.Request, _ = http.NewRequest(http.MethodGet, "/api/provide/config", nil)
-	c.Request.Host = "127.0.0.1:8080"
+	c.Request.Host = "127.0.0.1:1280"
 
 	ProvideHd.HandleProvideConfig(c)
 
@@ -311,7 +311,7 @@ func TestHandleProvide_FullPipeline(t *testing.T) {
 		w := httptest.NewRecorder()
 		c, _ := gin.CreateTestContext(w)
 		c.Request, _ = http.NewRequest(http.MethodGet, "/api/provide/config", nil)
-		c.Request.Host = "127.0.0.1:8080"
+		c.Request.Host = "127.0.0.1:1280"
 
 		ProvideHd.HandleProvideConfig(c)
 		if w.Code != http.StatusOK {
@@ -347,7 +347,7 @@ func TestHandleProvide_FullPipeline(t *testing.T) {
 		w := httptest.NewRecorder()
 		c, _ := gin.CreateTestContext(w)
 		c.Request, _ = http.NewRequest(http.MethodGet, "/api/provide/tvbox", nil)
-		c.Request.Host = "127.0.0.1:8080"
+		c.Request.Host = "127.0.0.1:1280"
 
 		ProvideHd.HandleProvideConfig(c)
 		if w.Code != http.StatusOK {
@@ -360,7 +360,7 @@ func TestHandleProvide_FullPipeline(t *testing.T) {
 		w := httptest.NewRecorder()
 		c, _ := gin.CreateTestContext(w)
 		c.Request, _ = http.NewRequest(http.MethodGet, "/api/provide/app", nil)
-		c.Request.Host = "127.0.0.1:8080"
+		c.Request.Host = "127.0.0.1:1280"
 
 		ProvideHd.HandleProvideApp(c)
 		if w.Code != http.StatusOK {
@@ -378,8 +378,8 @@ func TestHandleProvide_FullPipeline(t *testing.T) {
 		if !ok {
 			t.Fatalf("expected data object, got %v", res["data"])
 		}
-		if data["api_base"] != "http://127.0.0.1:8080/api" {
-			t.Fatalf("expected api_base http://127.0.0.1:8080/api, got %v", data["api_base"])
+		if data["api_base"] != "http://127.0.0.1:1280/api" {
+			t.Fatalf("expected api_base http://127.0.0.1:1280/api, got %v", data["api_base"])
 		}
 	})
 
@@ -388,7 +388,7 @@ func TestHandleProvide_FullPipeline(t *testing.T) {
 		w := httptest.NewRecorder()
 		c, _ := gin.CreateTestContext(w)
 		c.Request, _ = http.NewRequest(http.MethodGet, "/api/provide/vod?ac=list&t=1", nil)
-		c.Request.Host = "127.0.0.1:8080"
+		c.Request.Host = "127.0.0.1:1280"
 
 		ProvideHd.HandleProvide(c)
 		if w.Code != http.StatusOK {
@@ -416,7 +416,7 @@ func TestHandleProvide_FullPipeline(t *testing.T) {
 		// 校验海报 URL 是否补全了 baseURL
 		foundNormalizedPic := false
 		for _, item := range res.List {
-			if item.VodID == 201 && strings.HasPrefix(item.VodPic, "http://127.0.0.1:8080/upload/pic/201.jpg") {
+			if item.VodID == 201 && strings.HasPrefix(item.VodPic, "http://127.0.0.1:1280/upload/pic/201.jpg") {
 				foundNormalizedPic = true
 			}
 		}
@@ -430,7 +430,7 @@ func TestHandleProvide_FullPipeline(t *testing.T) {
 		w := httptest.NewRecorder()
 		c, _ := gin.CreateTestContext(w)
 		c.Request, _ = http.NewRequest(http.MethodGet, "/api/provide/vod?ac=detail&ids=201,202", nil)
-		c.Request.Host = "127.0.0.1:8080"
+		c.Request.Host = "127.0.0.1:1280"
 
 		ProvideHd.HandleProvide(c)
 		if w.Code != http.StatusOK {
@@ -478,7 +478,7 @@ func TestHandleProvide_FullPipeline(t *testing.T) {
 		if detail201Res.VodPlayURL != expectedPlayURL {
 			t.Fatalf("expected VodPlayURL %q, got %q", expectedPlayURL, detail201Res.VodPlayURL)
 		}
-		if !strings.HasPrefix(detail201Res.VodPic, "http://127.0.0.1:8080/upload/pic/201.jpg") {
+		if !strings.HasPrefix(detail201Res.VodPic, "http://127.0.0.1:1280/upload/pic/201.jpg") {
 			t.Fatalf("expected normalized VodPic, got %q", detail201Res.VodPic)
 		}
 
@@ -494,7 +494,7 @@ func TestHandleProvide_FullPipeline(t *testing.T) {
 		w := httptest.NewRecorder()
 		c, _ := gin.CreateTestContext(w)
 		c.Request, _ = http.NewRequest(http.MethodGet, "/api/provide/vod?ac=detail&t=1&pg=1", nil)
-		c.Request.Host = "127.0.0.1:8080"
+		c.Request.Host = "127.0.0.1:1280"
 
 		ProvideHd.HandleProvide(c)
 		if w.Code != http.StatusOK {
@@ -521,7 +521,7 @@ func TestHandleProvide_FullPipeline(t *testing.T) {
 		w := httptest.NewRecorder()
 		c, _ := gin.CreateTestContext(w)
 		c.Request, _ = http.NewRequest(http.MethodGet, "/api/provide/vod?ac=videolist&ids=202", nil)
-		c.Request.Host = "127.0.0.1:8080"
+		c.Request.Host = "127.0.0.1:1280"
 
 		ProvideHd.HandleProvide(c)
 		if w.Code != http.StatusOK {
@@ -549,7 +549,7 @@ func TestHandleProvide_FullPipeline(t *testing.T) {
 		w := httptest.NewRecorder()
 		c, _ := gin.CreateTestContext(w)
 		c.Request, _ = http.NewRequest(http.MethodGet, "/api/provide/vod?ac=detail&ids=201,202", nil)
-		c.Request.Host = "127.0.0.1:8080"
+		c.Request.Host = "127.0.0.1:1280"
 		ProvideHd.HandleProvide(c)
 		if w.Code != http.StatusOK {
 			t.Fatalf("expected 200, got %d", w.Code)
@@ -569,7 +569,7 @@ func TestHandleProvide_FullPipeline(t *testing.T) {
 		w2 := httptest.NewRecorder()
 		c2, _ := gin.CreateTestContext(w2)
 		c2.Request, _ = http.NewRequest(http.MethodGet, "/api/provide/vod?ac=list&t=1", nil)
-		c2.Request.Host = "127.0.0.1:8080"
+		c2.Request.Host = "127.0.0.1:1280"
 		ProvideHd.HandleProvide(c2)
 		var resList struct {
 			Code int              `json:"code"`
@@ -588,7 +588,7 @@ func TestHandleProvide_FullPipeline(t *testing.T) {
 		w := httptest.NewRecorder()
 		c, _ := gin.CreateTestContext(w)
 		c.Request, _ = http.NewRequest(http.MethodGet, "/api/provide/vod?wd=星际", nil)
-		c.Request.Host = "127.0.0.1:8080"
+		c.Request.Host = "127.0.0.1:1280"
 
 		ProvideHd.HandleProvide(c)
 		if w.Code != http.StatusOK {
@@ -612,7 +612,7 @@ func TestHandleProvide_FullPipeline(t *testing.T) {
 		w := httptest.NewRecorder()
 		c, _ := gin.CreateTestContext(w)
 		c.Request, _ = http.NewRequest(http.MethodGet, "/api/provide/vod?ac=detail&ids=99999", nil)
-		c.Request.Host = "127.0.0.1:8080"
+		c.Request.Host = "127.0.0.1:1280"
 
 		ProvideHd.HandleProvide(c)
 		if w.Code != http.StatusOK {
@@ -636,7 +636,7 @@ func TestHandleProvide_FullPipeline(t *testing.T) {
 		w := httptest.NewRecorder()
 		c, _ := gin.CreateTestContext(w)
 		c.Request, _ = http.NewRequest(http.MethodGet, "/api/provide/vod?ac=detail&ids=201", nil)
-		c.Request.Host = "internal-backend:8080"
+		c.Request.Host = "internal-backend:1280"
 		c.Request.Header.Set("X-Forwarded-Proto", "https")
 		c.Request.Header.Set("X-Forwarded-Host", "tvbox.ecohub.com")
 
@@ -777,8 +777,8 @@ func TestHandleProvide_SingleFlight_ConcurrentDataRace(t *testing.T) {
 		go func(idx int) {
 			defer wg.Done()
 
-			host := "192.168.1.88:8080"
-			expectedPrefix := "http://192.168.1.88:8080"
+			host := "192.168.1.88:1280"
+			expectedPrefix := "http://192.168.1.88:1280"
 			if idx%2 == 0 {
 				host = "tv.public-domain.com"
 				expectedPrefix = "http://tv.public-domain.com"

@@ -72,8 +72,8 @@ EcoHub 不提供、不存储任何影视文件，片源全部来自部署者自�
 
 ```mermaid
 flowchart LR
-    Client["浏览器 / 订阅客户端"] --> Web["Next.js 前端 :3000"]
-    Web -- "/api/*" --> API["Go API :8080"]
+    Client["浏览器 / 订阅客户端"] --> Web["Next.js 前端 :1281"]
+    Web -- "/api/*" --> API["Go API :1280"]
     API --> DB[("MySQL 8 / Redis 7")]
     API --> Ext["采集站 / TMDB / Telegram / 弹幕"]
 ```
@@ -87,7 +87,7 @@ curl -fsSL https://raw.githubusercontent.com/fe-spark/EcoHub/main/scripts/instal
   | ECOHUB_IMAGE=ghcr.io/fe-spark/ecohub:v3.1.5 sh
 ```
 
-安装完成后终端将输出访问地址、初始账号与订阅地址，默认 Web 端口为 `3000`，数据目录为 `~/ecohub`，后续可通过 `ecohub` 命令管理。密码、端口、1Panel、手动部署、反向代理与环境变量见 [部署指南](./docs/README-Deploy.md)。
+安装完成后终端将输出访问地址、初始账号与订阅地址，默认 Web 端口为 `1281`，数据目录为 `~/ecohub`，后续可通过 `ecohub` 命令管理。密码、端口、1Panel、手动部署、反向代理与环境变量见 [部署指南](./docs/README-Deploy.md)。
 
 ## 文档
 

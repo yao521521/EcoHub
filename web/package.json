@@ -8,9 +8,9 @@
     "url": "https://github.com/fe-spark/EcoHub.git"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 1281",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 1281",
     "lint": "eslint",
     "postinstall": "patch-package"
   },

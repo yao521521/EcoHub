@@ -16,7 +16,7 @@ The following operations are not supported:
 - Using "立即升级" (Upgrade now) in the v2 admin panel.
 - Copying the old `data/mysql`, `data/redis`, or `data/uploads` into the new directory.
 
-The v2 and v3 compose files use the same container names `Eco-hub`, `Eco-mysql`, `Eco-redis` and the same ports `3000` and `18080`. The new stack cannot start while the old containers exist, so remove them before installing v3:
+The v2 and v3 compose files use the same container names `Eco-hub`, `Eco-mysql`, `Eco-redis` and the same ports `1281` and `1280`. The new stack cannot start while the old containers exist, so remove them before installing v3:
 
 ```bash
 docker rm -f Eco-hub Eco-mysql Eco-redis
@@ -73,7 +73,7 @@ The upgrade is complete when all of the following are true:
 - The site URL printed in the terminal opens, and `/api/config/basic` returns JSON.
 - After signing in to the admin panel and running a full collect, films appear on the site.
 
-A reverse proxy that already points to `127.0.0.1:3000` requires no changes. If the new stack fails to start because a port or container name is in use, the old containers still exist.
+A reverse proxy that already points to `127.0.0.1:1281` requires no changes. If the new stack fails to start because a port or container name is in use, the old containers still exist.
 
 ## Related documents
 

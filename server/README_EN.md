@@ -27,7 +27,7 @@ go run ./cmd/server
 Contents of `.env.example`:
 
 ```env
-PORT=8080
+PORT=1280
 JWT_SECRET=ecohub_2026!local@dev_secret$001
 ECOHUB_ADMIN_PASSWORD=admin
 MYSQL_HOST=127.0.0.1
@@ -42,7 +42,7 @@ REDIS_DB=0
 ```
 
 - The process reads `.env` from the current directory on startup and must therefore be run inside `server/`. Existing environment variables are not overridden by `.env`.
-- The API listens on `:8080` by default.
+- The API listens on `:1280` by default.
 - The first startup creates the tables and writes the site config, the admin account `admin`, the 12 preset collect sources, and 4 scheduled tasks.
 - For a public deployment, replace `JWT_SECRET` with a random string, which can be generated with `openssl rand -hex 32`.
 
@@ -55,14 +55,14 @@ docker compose up -d --build server
 ```
 
 - Run the command in the repository root. `server` declares no `depends_on` and does not start the databases; run `docker compose up -d mysql redis` first.
-- The API is mapped to `18080` on the host (`SERVER_PORT`), for example `http://127.0.0.1:18080/api/config/basic`.
+- The API is mapped to `1280` on the host (`SERVER_PORT`), for example `http://127.0.0.1:1280/api/config/basic`.
 - Inside the container, the databases are reached by the service names `mysql` and `redis`. Variables are taken from the `.env` in the repository root (or the compose defaults if it is absent); `server/.env` is not read.
 
 ## Environment variables
 
 | Variable | Default | Required | Notes |
 | --- | --- | --- | --- |
-| `PORT` | `8080` | No | API listen port. Fixed to `8080` in the release image |
+| `PORT` | `1280` | No | API listen port. Fixed to `1280` in the release image |
 | `JWT_SECRET` | none | Yes | Login signing key. Panics when unset |
 | `ECOHUB_ADMIN_PASSWORD` | `admin` | No | Written only when `admin` is first created |
 | `MYSQL_HOST` | none | Yes | `127.0.0.1` on the host, the service name `mysql` in Compose, `host.docker.internal` to reach the host from a container |
